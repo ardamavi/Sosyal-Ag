@@ -1,0 +1,26 @@
+.post {
+  width: 100%;
+  text-align: center;
+  padding-top: 40px;
+}
+.one-post {
+  width: 70%;
+  text-align: left;
+  border: solid 1px;
+}
+.one-name {
+  padding-left: 2%;
+}
+.one-text {
+  padding-left: 2%;
+}
+.header {
+    width: 100%;
+    text-align: center;
+}
+.header-text {
+    font-size: 6em;
+}
+.not-link {
+    text-decoration: none;
+}

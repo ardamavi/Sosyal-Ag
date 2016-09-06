@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        {% load static %}
+        <title>Arda Mavi</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+    </head>
+
+    <body>
+
+        <div class="header">
+            <a class="not-link" href="javascript:history.go(0)">
+                <div class="header-text">
+                    <span style="color:#fc4f3f;">Arda</span> <span style="color:#3377CC;">Mavi</span>
+                </div>
+            </a>
+            <hr/>
+        </div>
+
+        {% for post in posts %}
+        <div class="post">
+          <center>
+            <div class="one-post">
+              <h3 class="one-name">{{ post.name }}</h3>
+              <p class="one-text">{{ post.text }}</p>
+            </div>
+          </center>
+        </div>
+        {% endfor %}
+
+    </body>
+
+</html>

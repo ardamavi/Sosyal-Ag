@@ -1,7 +1,7 @@
 .post {
   width: 100%;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 30px;
 }
 .one-post {
   width: 70%;
@@ -9,18 +9,51 @@
   border: solid 1px;
 }
 .one-name {
-  padding-left: 2%;
+    padding-left: 2%;
+    font-size: 20px;
 }
 .one-text {
-  padding-left: 2%;
+    padding-left: 2%;
+    width: 50%;
+    font-size: 15px;
 }
 .header {
     width: 100%;
     text-align: center;
 }
-.header-text {
-    font-size: 6em;
+#ypBtn {
+    display: block;
+    width: 30%;
+    height: 50px;
+    font-size: 20px;
 }
-.not-link {
-    text-decoration: none;
+#ypForm {
+    display: none;
+}
+#iptalBtn {
+    display: none;
+    width: 6%;
+    height: 30px;
+    font-size: 13px;
+}
+
+.girisUyeBtn {
+    width: 30%;
+    height: 70px;
+}
+
+#girisUye {
+    width: 90%;
+}
+
+#girisForm {
+    padding-top: 51px;
+    padding-bottom: 52px;
+    width: 50%;
+    float: left;
+}
+
+#uyeForm {
+    width: 50%;
+    float: right;
 }

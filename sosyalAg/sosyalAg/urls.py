@@ -17,6 +17,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('mavi.urls')),
+    url(r'^', include('mavi.urls', namespace="mavi", app_name="mavi")),
     url(r'^admin/', admin.site.urls)
 ]

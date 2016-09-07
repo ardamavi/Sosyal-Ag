@@ -3,32 +3,113 @@
 
     <head>
         {% load static %}
-        <title>Arda Mavi</title>
+        <title>SosNarts</title>
         <meta charset="UTF-8">
+
+        <script type="text/javascript" src="{% static "script.js" %}"></script>
+
         <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     </head>
 
     <body>
 
         <div class="header">
-            <a class="not-link" href="javascript:history.go(0)">
-                <div class="header-text">
-                    <span style="color:#fc4f3f;">Arda</span> <span style="color:#3377CC;">Mavi</span>
-                </div>
+            <a style="text-decoration: none; font-size: 6em;" href="/">
+                    <span style="color:#fc4f3f;">Sos</span><span style="color:#3377CC;">Narts</span>
             </a>
             <hr/>
         </div>
+        {% if user.is_authenticated %}
+        <center>
+          <h4 id="errMessage" style="color:#fc4f3f">
+            {% if messages %}
+                  {% for message in messages %}
+                    {{ message }}
+                  {% endfor %}
+            {% endif %}
+          </h4>
+            <div id="ypForm">
+                <form method="post" action="/post" style="width: 30%; padding: 20px;">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <input class="form-control" name="kullaniciAdi" placeholder="Kullanıcı Adı" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <textarea style="max-width: 100%;" class="form-control" name="metin" placeholder="Metin" maxlength="140" rows="3"></textarea>
+                    </div>
+                        <button style="width: 70%;" type="submit" class="btn btn-default" onclick="formKapa()">Gönder</button>
+                 </form>
+            </div>
+
+          <button id="ypBtn" class="btn btn-default" onclick="formAc()">Yazı Paylaş</button>
+          <button id="iptalBtn" class="btn btn-default" onclick="formKapa()">İptal</button>
+        </center>
 
         {% for post in posts %}
         <div class="post">
           <center>
             <div class="one-post">
               <h3 class="one-name">{{ post.name }}</h3>
-              <p class="one-text">{{ post.text }}</p>
+              <div class="one-text">
+                <p>{{ post.text }}</p>
+              </div>
             </div>
           </center>
         </div>
         {% endfor %}
+<button onclick="cikisYapAction()">ÇK</button>
+        {% else %}
+        <center>
+            <h2>! Paylaşımları Görebilmeniz Ve Paylaşım Yapabilmeniz İçin Giriş Yapmalısınız !</h2>
+            <br/>
+            <div id="girisUye">
+                <h4 id="errMessage" style="color:#fc4f3f">
+                    {% if messages %}
+                          {% for message in messages %}
+                            {{ message }}
+                          {% endfor %}
+                    {% endif %}
+                </h4>
+              <div id="girisForm">
+                  <h4>Giriş Yap</h4>
+                <form method="post" action="/girisYap" style="width: 80%; padding: 20px;">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <input class="form-control" name="kullaniciAdi" placeholder="Kullanıcı Adı" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="sifre" placeholder="Şifre" maxlength="100">
+                    </div>
+                        <button style="width: 70%;" type="submit" class="btn btn-default">Giriş Yap</button>
+                 </form>
+
+              </div>
+              <div id="uyeForm">
+                  <h4>Üye Ol</h4>
+                <form method="post" action="/uyeOl" style="width: 80%; padding: 20px;">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <input class="form-control" name="kullaniciAdi" placeholder="Kullanıcı Adı" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" name="eMail" placeholder="E-Mail" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="sifre" placeholder="Şifre" maxlength="100">
+                        <br />
+                        <input class="form-control" type="password" name="sifre2" placeholder="Şifre Tekrarı" maxlength="100">
+                    </div>
+                        <button style="width: 70%;" type="submit" class="btn btn-default">Üye Ol</button>
+                 </form>
+
+              </div>
+            </div>
+            <h4>Arda Mavi Belediyesi</h4>
+        </center>
+        {% endif %}
 
     </body>
 

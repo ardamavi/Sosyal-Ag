@@ -14,7 +14,7 @@
 }
 .one-text {
     padding-left: 2%;
-    width: 50%;
+    width: 95%;
     font-size: 15px;
 }
 .header {
@@ -23,7 +23,7 @@
 }
 #ypBtn {
     display: block;
-    width: 30%;
+    width: 55%;
     height: 50px;
     font-size: 20px;
 }
@@ -32,7 +32,7 @@
 }
 #iptalBtn {
     display: none;
-    width: 6%;
+    width: 10%;
     height: 30px;
     font-size: 13px;
 }
@@ -47,8 +47,8 @@
 }
 
 #girisForm {
-    padding-top: 51px;
-    padding-bottom: 52px;
+    padding-top: 20px;
+    padding-bottom: 34px;
     width: 50%;
     float: left;
 }
@@ -56,4 +56,44 @@
 #uyeForm {
     width: 50%;
     float: right;
+}
+
+#cyBtn {
+    width: 55%;
+    height: 50px;
+    font-size: 20px;
+}
+
+.yukariCik {
+    cursor: pointer;
+    position: fixed;
+    padding-right: 5%;
+    padding-bottom: 10px;
+    bottom: 0;
+    right: 0;
+    color: #3377CC;
+}
+
+.kullanici {
+    font-size: 15px;
+    color: #606060;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 35px;
+    background-color: #efefef;
+    color: #5a5858;
+    
+}
+
+.footer-link {
+    cursor: pointer;
+    color: #3377CC;
+}
+
+.footer-text {
+    padding-top: 5px;
 }

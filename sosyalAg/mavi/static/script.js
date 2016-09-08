@@ -21,3 +21,13 @@ function formKapa(){
     document.getElementById("ypBtn").style.display = "block";
     document.getElementById("errMessage").textContent = "";
 }
+
+function duzenleForm(id){
+    document.getElementById("editForm" + id).style.display = "block";
+    document.getElementById("düzenle-sil" + id).style.display = "none";
+}
+
+function duzenleIptalForm(id){
+    document.getElementById("editForm" + id).style.display = "none";
+    document.getElementById("düzenle-sil" + id).style.display = "block";
+}

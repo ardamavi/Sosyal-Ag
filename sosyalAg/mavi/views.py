@@ -9,6 +9,8 @@ import sqlite3
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
 
 def index(request):
     post_list = Post.objects.all()[::-1]
@@ -70,4 +72,19 @@ def uyeOl(request):
         user.save()
         messages.add_message(request, messages.INFO, "<span style='color: green;'>Giriş yapabilirsiniz!</span>")
 
+    return redirect("mavi:index")
+
+def delete(request, id):
+    post = get_object_or_404(Post, pk=id).delete()
+    messages.add_message(request, messages.INFO, "<span style='color: green;'>Gönderiniz Silindi!</span>")
+    return redirect("mavi:index")
+
+def edit(request, id):
+    print(request, id)
+    metin = request.POST['metin']
+    if metin == "":
+        messages.add_message(request, messages.INFO, "Metin boş geçilemez !")
+    else:
+        post = Post.objects.filter(id=id).update(text = metin)
+        messages.add_message(request, messages.INFO, "<span style='color: green;'>Gönderiniz Düzenlendi!</span>")
     return redirect("mavi:index")

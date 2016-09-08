@@ -63,7 +63,28 @@
         <div class="post">
           <center>
             <div class="one-post">
-                <h3 class="one-name"><span style="color: #fc4f3f;">{{ post.first_name }} {{ post.last_name }}</span> <span style="color: #3377CC; font-size: 13px;">@{{ post.name }}</span></h3>
+                <h3 class="one-name"><span style="color: #fc4f3f;">{{ post.first_name }} {{ post.last_name }}</span> <span style="color: #3377CC; font-size: 13px;">@{{ post.name }}</span>
+                {% if  user.username == post.name %}
+                    <div id="editForm{{post.id}}" style="display: none; float: right; padding-right: 2%; font-size: 17px;">
+                        <form method="post" action="/edit/{{post.id}}/">
+                            {% csrf_token %}
+                            <textarea style="width: 406px; max-width: 300px; max-height: 50px;" class="form-control" name="metin" placeholder="En fazla 140 karakter" maxlength="140" rows="3">{{ post.text }}</textarea>
+                            <center style="padding-top: 10px;">
+                                <button type="submit">Kaydet</button> -
+                                <a onclick="duzenleIptalForm({{post.id}})">İptal</a>
+                            </center>
+                        </form>
+                    </div>
+                    <div style="float: right; padding-right: 2%; padding-top: 4px; font-size: 17px;">
+                        <center>
+                            <div id="düzenle-sil{{post.id}}">
+                                <a id="düzenleLink" onclick="duzenleForm({{post.id}})" >Düzenle</a> -
+                                <a id="silLink" href="/sil/{{post.id}}">Sil</a>
+                            </div>
+                        </center>
+                    </div>
+                {% endif %}
+                </h3>
               <div class="one-text">
                 <p>{{ post.text }}</p>
               </div>

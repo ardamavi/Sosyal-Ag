@@ -97,3 +97,7 @@
 .footer-text {
     padding-top: 5px;
 }
+
+#editForm {
+    display: none;
+}

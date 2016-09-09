@@ -93,7 +93,7 @@ def delete(request, id):
 def edit(request, id):
     metin = request.POST['metin']
     if metin == "":
-        messages.add_message(request, messages.INFO, "Metin boş geçilemez !")
+        messages.add_message(request, messages.INFO, "Düzenleme metni boş olamaz !")
     else:
         post = Post.objects.filter(id=id).update(text = metin)
         messages.add_message(request, messages.INFO, "<span style='color: green;'>Gönderiniz Düzenlendi!</span>")

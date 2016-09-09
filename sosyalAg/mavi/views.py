@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.views import generic
 from .models import Post
+from .models import guncelYazi
 from django.views.generic import View
 import sqlite3
 from django.contrib import messages
@@ -14,6 +15,7 @@ from django.core.urlresolvers import reverse
 
 def index(request):
     post_list = Post.objects.all()[::-1]
+    guncelYazilar = guncelYazi.objects.all()
     paginator = Paginator(post_list, 100)
 
     page = request.GET.get('page')
@@ -23,8 +25,7 @@ def index(request):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-
-    return render(request, 'index.html', {'posts': posts})
+    return render(request, 'index.html', {'posts': posts, 'guncelYazilar': guncelYazilar})
 
 def post(request):
     metin = request.POST['metin']
@@ -67,10 +68,13 @@ def uyeOl(request):
     elif kullaniciAdiKntrl(kullaniciAdi) == False:
         messages.add_message(request, messages.INFO, "Kullanıcı adı; kelimeler, rakamlar ve @/./+/-/_ karakterlerinden oluşabilir, 30 karakter veya daha az olamalıdır!")
     else :
-        user = User(username=kullaniciAdi, first_name=adi, last_name=soyadi, is_staff=False)
-        user.set_password(sifre)
-        user.save()
-        messages.add_message(request, messages.INFO, "<span style='color: green;'>Giriş yapabilirsiniz!</span>")
+        try:
+            user = User(username=kullaniciAdi, first_name=adi, last_name=soyadi, is_staff=False)
+            user.set_password(sifre)
+            user.save()
+            messages.add_message(request, messages.INFO, "<span style='color: green;'>Giriş yapabilirsiniz!</span>")
+        except:
+            messages.add_message(request, messages.INFO, "Bu kullanıcı zaten var!")
 
     return redirect("mavi:index")
 
@@ -80,7 +84,6 @@ def delete(request, id):
     return redirect("mavi:index")
 
 def edit(request, id):
-    print(request, id)
     metin = request.POST['metin']
     if metin == "":
         messages.add_message(request, messages.INFO, "Metin boş geçilemez !")

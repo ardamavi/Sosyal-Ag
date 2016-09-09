@@ -73,7 +73,7 @@
                     <div id="editForm{{post.id}}" style="display: none; float: right; padding-right: 2%; font-size: 17px;">
                         <form method="post" action="/edit/{{post.id}}/">
                             {% csrf_token %}
-                            <textarea style="width: 406px; max-width: 300px; max-height: 50px;" class="form-control" name="metin" placeholder="En fazla 140 karakter" maxlength="140" rows="3">{{ post.text|safe }}</textarea>
+                            <textarea style="width: 406px; max-width: 300px; max-height: 50px;" class="form-control" name="metin" placeholder="En fazla 140 karakter" maxlength="140" rows="3">{{ post.text }}</textarea>
                             <center style="padding-top: 10px;">
                                 <button type="submit" class="btn btn-default">Kaydet</button>&nbsp;
                                 <a class="btn btn-default" onclick="duzenleIptalForm({{post.id}})">İptal</a>
@@ -95,7 +95,7 @@
                 {% endif %}
                 </h3>
               <div class="one-text">
-                <p>{{ post.text|safe|linebreaksbr }}</p>
+                <p>{{ post.text|linebreaksbr }}</p>
               </div>
             </div>
           </center>
@@ -181,5 +181,4 @@
             </a>
         </div>
     </body>
-
 </html>

@@ -27,15 +27,12 @@ def index(request):
         posts = paginator.page(paginator.num_pages)
     return render(request, 'index.html', {'posts': posts, 'guncelYazilar': guncelYazilar})
 
-def etiketi_Link_yap(metin):
-    return metin
-
 def post(request):
     metin = request.POST['metin']
     if metin == "":
         messages.add_message(request, messages.INFO, "Metin boş geçilemez !")
     else:
-        Post(name=request.user.username, first_name=request.user.first_name, last_name=request.user.last_name, text=etiketi_Link_yap(metin)).save()
+        Post(name=request.user.username, first_name=request.user.first_name, last_name=request.user.last_name, text=metin).save()
         messages.add_message(request, messages.INFO, "<span style='color: green;'>Paylaşıldı!</span>")
 
     return redirect("mavi:index")
@@ -98,7 +95,7 @@ def edit(request, id):
     if metin == "":
         messages.add_message(request, messages.INFO, "Metin boş geçilemez !")
     else:
-        post = Post.objects.filter(id=id).update(text = etiketi_Link_yap(metin))
+        post = Post.objects.filter(id=id).update(text = metin)
         messages.add_message(request, messages.INFO, "<span style='color: green;'>Gönderiniz Düzenlendi!</span>")
     return redirect("mavi:index")
 

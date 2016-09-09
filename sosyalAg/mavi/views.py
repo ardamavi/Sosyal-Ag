@@ -27,12 +27,15 @@ def index(request):
         posts = paginator.page(paginator.num_pages)
     return render(request, 'index.html', {'posts': posts, 'guncelYazilar': guncelYazilar})
 
+def etiketi_Link_yap(metin):
+    return metin
+
 def post(request):
     metin = request.POST['metin']
     if metin == "":
         messages.add_message(request, messages.INFO, "Metin boş geçilemez !")
     else:
-        Post(name=request.user.username, first_name=request.user.first_name, last_name=request.user.last_name, text=metin).save()
+        Post(name=request.user.username, first_name=request.user.first_name, last_name=request.user.last_name, text=etiketi_Link_yap(metin)).save()
         messages.add_message(request, messages.INFO, "<span style='color: green;'>Paylaşıldı!</span>")
 
     return redirect("mavi:index")
@@ -46,12 +49,19 @@ def girisYap(request):
         user = authenticate(username=kullaniciAdi, password=sifre)
         if user is not None:
             login(request, user)
+        else:
+            messages.add_message(request, messages.INFO, "Böyle bir kullanıcı bulunamadı!<br />Lütfen üye olun!")
     return redirect("mavi:index")
 
 def kullaniciAdiKntrl(ad):
     if " " in ad:
         return False
-
+    ozelKarakterler = [".", "-", "_"]
+    for harf in ad:
+        if harf.isalpha() or harf.isdigit() or (harf in ozelKarakterler):
+            continue
+        else:
+            return False
     return True
 
 def uyeOl(request):
@@ -66,7 +76,7 @@ def uyeOl(request):
     elif sifre != sifre2:
         messages.add_message(request, messages.INFO, "2. Şifre hatalı!")
     elif kullaniciAdiKntrl(kullaniciAdi) == False:
-        messages.add_message(request, messages.INFO, "Kullanıcı adı; kelimeler, rakamlar ve @/./+/-/_ karakterlerinden oluşabilir, 30 karakter veya daha az olamalıdır!")
+        messages.add_message(request, messages.INFO, "Kullanıcı adı; kelimeler, rakamlar ve ./-/_ karakterlerinden oluşabilir, en fazla 30 veya daha az karakter olamalıdır!")
     else :
         try:
             user = User(username=kullaniciAdi, first_name=adi, last_name=soyadi, is_staff=False)
@@ -88,6 +98,25 @@ def edit(request, id):
     if metin == "":
         messages.add_message(request, messages.INFO, "Metin boş geçilemez !")
     else:
-        post = Post.objects.filter(id=id).update(text = metin)
+        post = Post.objects.filter(id=id).update(text = etiketi_Link_yap(metin))
         messages.add_message(request, messages.INFO, "<span style='color: green;'>Gönderiniz Düzenlendi!</span>")
     return redirect("mavi:index")
+
+def kullaniciPost(request, kullaniciAdi):
+    post_list = Post.objects.filter(name=kullaniciAdi)[::-1]
+    guncelYazilar = guncelYazi.objects.all()
+    paginator = Paginator(post_list, 100)
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    if post_list == []:
+        messages.add_message(request, messages.INFO, "Kullanıcının paylaşımı bulunmamaktadır!")
+    else:
+        messages.add_message(request, messages.INFO, "<span style='color: #fc4f3f;'>Profil: </span><span style='color:#3377CC; font-size:15px;'>@"+kullaniciAdi+"</span>")
+
+    return render(request, 'index.html', {'posts': posts, 'guncelYazilar': guncelYazilar})

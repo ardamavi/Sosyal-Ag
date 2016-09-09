@@ -58,10 +58,7 @@
                     <button id="ypBtn" class="btn btn-default" onclick="formAc()"><span style="color: #fc4f3f;">Yazı</span> <span style="color:#3377CC;">Paylaş</span></button>
                 </div>
                  <div style="width: 50%; float: right;">
-                    <form method="post" action="/cikisYap">
-                        {% csrf_token %}
-                        <button id="cyBtn" class="btn btn-default" type="submit"><span style="color: #fc4f3f;">Çıkış</span> <span style="color:#3377CC;">Yap</span></button>
-                    </form>
+                        <button id="cyBtn" class="btn btn-default" onclick="location.href='/cikisYap'"><span style="color: #fc4f3f;">Çıkış</span> <span style="color:#3377CC;">Yap</span></button>
                 </div>
                 <br/><br/>
             </div>
@@ -71,30 +68,34 @@
         <div class="post">
           <center>
             <div class="one-post">
-                <h3 class="one-name"><span style="color: #fc4f3f;">{{ post.first_name }} {{ post.last_name }}</span> <span style="color: #3377CC; font-size: 13px;">@{{ post.name }}</span>
+                <h3 class="one-name"><span style="color: #fc4f3f;">{{ post.first_name }} {{ post.last_name }}</span> &nbsp;<span style="color: #3377CC; font-size: 13px;"><a href="/kullanici/{{ post.name }}/">@{{ post.name }}</a></span>
                 {% if  user.username == post.name %}
                     <div id="editForm{{post.id}}" style="display: none; float: right; padding-right: 2%; font-size: 17px;">
                         <form method="post" action="/edit/{{post.id}}/">
                             {% csrf_token %}
-                            <textarea style="width: 406px; max-width: 300px; max-height: 50px;" class="form-control" name="metin" placeholder="En fazla 140 karakter" maxlength="140" rows="3">{{ post.text }}</textarea>
+                            <textarea style="width: 406px; max-width: 300px; max-height: 50px;" class="form-control" name="metin" placeholder="En fazla 140 karakter" maxlength="140" rows="3">{{ post.text|safe }}</textarea>
                             <center style="padding-top: 10px;">
-                                <button type="submit" class="btn btn-default">Kaydet</button> -
+                                <button type="submit" class="btn btn-default">Kaydet</button>&nbsp;
                                 <a class="btn btn-default" onclick="duzenleIptalForm({{post.id}})">İptal</a>
                             </center>
                         </form>
                     </div>
                     <div style="float: right; padding-right: 2%; padding-top: 4px; font-size: 17px;">
                         <center>
+                            <div id="silinsinMi{{post.id}}" style="display: none;">
+                                <a class="btn btn-default" id="silLink" href="/sil/{{post.id}}" style="color: red;">Sil</a>&nbsp;
+                                <a class="btn btn-default" onclick="silinmesin({{post.id}})">İptal</a>
+                            </div>
                             <div id="düzenle-sil{{post.id}}">
-                                <a class="btn btn-default" id="düzenleLink" onclick="duzenleForm({{post.id}})" >Düzenle</a> -
-                                <a class="btn btn-default" id="silLink" href="/sil/{{post.id}}">Sil</a>
+                                <a class="btn btn-default" id="düzenleLink" onclick="duzenleForm({{post.id}})" >Düzenle</a>&nbsp;
+                                <a class="btn btn-default" id="silLink" onclick="silinsinMiAc({{post.id}})">Sil</a>
                             </div>
                         </center>
                     </div>
                 {% endif %}
                 </h3>
               <div class="one-text">
-                <p>{{ post.text|linebreaksbr }}</p>
+                <p>{{ post.text|safe|linebreaksbr }}</p>
               </div>
             </div>
           </center>
@@ -119,7 +120,7 @@
         </center>
         {% else %}
         <center>
-            <h2><span style="color: #fc4f3f;">! Paylaşımları Görebilmeniz</span> <span style="color:#3377CC;">Ve Paylaşım Yapabilmeniz İçin Giriş Yapmalısınız !</span></h2>
+            <h2><span style="color: #fc4f3f;">Paylaşımları Görebilmeniz</span> <span style="color:#3377CC;">Ve Paylaşım Yapabilmeniz İçin Giriş Yapmalısınız!</span></h2>
             <br/>
             <div id="girisUye">
                 <h4 id="errMessage" style="color:#fc4f3f">
@@ -166,7 +167,7 @@
 
               </div>
             </div>
-            <h4><span style="color: #fc4f3f;">Arda</span> <span style="color:#3377CC;">Mavi Belediyesi</span></h4>
+            <h4><span style="color: #fc4f3f;">Arda</span> <span style="color:#3377CC;">Mavi Development</span></h4>
         </center>
         {% endif %}
 

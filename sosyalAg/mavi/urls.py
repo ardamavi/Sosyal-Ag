@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^uyeOl', views.uyeOl, name="uyeOl"),
     url(r'^edit/(?P<id>\d+)/$', views.edit, name="edit"),
     url(r'^sil/(?P<id>\d+)/$', views.delete, name="sil"),
+    url(r'^kullanici/(?P<kullaniciAdi>[-._\w]+)/$', views.kullaniciPost, name="kullanici"),
 ]

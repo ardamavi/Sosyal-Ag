@@ -31,3 +31,13 @@ function duzenleIptalForm(id){
     document.getElementById("editForm" + id).style.display = "none";
     document.getElementById("düzenle-sil" + id).style.display = "block";
 }
+
+function silinsinMiAc(id){
+    document.getElementById("düzenle-sil" + id).style.display = "none";
+    document.getElementById("silinsinMi" + id).style.display = "block";
+}
+
+function silinmesin(id){
+    document.getElementById("düzenle-sil" + id).style.display = "block";
+    document.getElementById("silinsinMi" + id).style.display = "none";
+}

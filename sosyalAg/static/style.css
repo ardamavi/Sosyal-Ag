@@ -1,0 +1,109 @@
+.post {
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+}
+.one-post {
+  width: 70%;
+  text-align: left;
+  border: solid 1px;
+}
+.one-name {
+    padding-left: 2%;
+    font-size: 20px;
+}
+.one-text {
+    padding-left: 2%;
+    width: 95%;
+    font-size: 15px;
+}
+.header {
+    width: 100%;
+    text-align: center;
+}
+#ypBtn {
+    display: block;
+    width: 55%;
+    height: 50px;
+    font-size: 20px;
+}
+#ypForm {
+    display: none;
+}
+#iptalBtn {
+    display: none;
+    width: 10%;
+    height: 30px;
+    font-size: 13px;
+}
+
+.girisUyeBtn {
+    width: 30%;
+    height: 70px;
+}
+
+#girisUye {
+    width: 90%;
+}
+
+#girisForm {
+    padding-top: 20px;
+    padding-bottom: 34px;
+    width: 50%;
+    float: left;
+}
+
+#uyeForm {
+    width: 50%;
+    float: right;
+}
+
+#cyBtn {
+    width: 55%;
+    height: 50px;
+    font-size: 20px;
+}
+
+.yukariCik {
+    cursor: pointer;
+    position: fixed;
+    padding-right: 5%;
+    padding-bottom: 10px;
+    bottom: 0;
+    right: 0;
+    color: #3377CC;
+}
+
+.kullanici {
+    font-size: 15px;
+    color: #606060;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 35px;
+    background-color: #efefef;
+    color: #5a5858;
+    
+}
+
+.footer-link {
+    cursor: pointer;
+    color: #3377CC;
+}
+
+.footer-text {
+    padding-top: 5px;
+}
+
+#editForm {
+    display: none;
+}
+
+#guncelYazi {
+    padding-bottom: 10px;
+    font-size: 15px;
+    color: #656464;
+}
